@@ -1,13 +1,13 @@
 import { Text,View,StatusBar } from 'react-native';
-
+import { Link } from 'expo-router';
 
 export default function Page() {
   return (
     <View>
-      <Text style ={{color : '#fff'}}>Bienvenue sur le campus du Bourget du Lac !</Text>
+      <Text style ={{color : '#f0f'}}>Bienvenue sur le campus du Bourget du Lac !</Text>
       <StatusBar style="auto" />
 
-              <Text>Commençons notre aventure</Text>
+              <Link href ="/carte">Commençons notre aventure</Link>
 
     </View>
   );
