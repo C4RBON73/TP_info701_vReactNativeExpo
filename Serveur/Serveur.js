@@ -15,11 +15,32 @@ app.get("/", (req, res) => {
 });
 
 app.get("/leaderboard", (req, res) => {
-	res.sendFile(leaderboard);
+    fs.exists(leaderboard, (exists) => {
+        if(exists) res.sendFile(leaderboard);
+        else       res.status(500).send("No leaderbord yet");
+    });
 });
+
+app.post("/leaderboard", (req, res) => {
+    fs.exists(leaderboard, (exists) => {
+        if(exists) res.sendFile(leaderboard);
+        else       res.status(500).send("No leaderbord yet");
+    });
+});
+
+app.get("/updateScore", (req, res) => {
+    res.status(418).send('Wong requested!');
+});
+
 app.post("/updateScore", (req, res) =>{
-	console.log(req.body.username);
-	console.log(req.body.score);
+    let user=req.body.username;
+    let score=req.body.score;
+	console.log(user);
+	console.log(score);
+	if(!user||!score||user===''){
+        res.status(418).send('Wong requested!');
+        return -1;
+	}
 	let obj = [];
 	fs.exists(leaderboard, (exists) => {
 		if(exists){
