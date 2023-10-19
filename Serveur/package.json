@@ -1,0 +1,7 @@
+{
+  "name": "serveur",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
