@@ -22,14 +22,11 @@ app.get("/leaderboard", (req, res) => {
 });
 
 app.post("/leaderboard", (req, res) => {
-    fs.exists(leaderboard, (exists) => {
-        if(exists) res.sendFile(leaderboard);
-        else       res.status(500).send("No leaderbord yet");
-    });
+    res.status(405).send('Method Not Allowed: post leaderboard');
 });
 
 app.get("/updateScore", (req, res) => {
-    res.status(418).send('Wong requested!');
+    res.status(405).send('Method Not Allowed: get updateScore');
 });
 
 app.post("/updateScore", (req, res) =>{
@@ -50,28 +47,28 @@ app.post("/updateScore", (req, res) =>{
 					console.log(err);
 				} else {
 					obj = JSON.parse(data);
-					console.log(obj);
+					//console.log(obj);
 					console.log("writing file "+leaderboard+"...");
 					let valeur={"username":req.body.username, "score" : req.body.score};
 					trie.dictature(obj,valeur);
 					trie.insertion(obj,valeur);
-					console.log(obj);
+					//console.log(obj);
 					let json = JSON.stringify(obj);
-					console.log(json+" json");
+					//console.log(json+" json");
 					fs.writeFileSync(leaderboard, json);
 			}});
 		} else {
 			console.log("creating "+leaderboard+"...");
 			console.log("writing file "+leaderboard+"...");
 			obj.push({"username":req.body.username, "score" : req.body.score});
-			console.log(obj);
+			//console.log(obj);
 			let json = JSON.stringify(obj);
-			console.log(json+" json");
+			//console.log(json+" json");
 			fs.writeFileSync(leaderboard, json);
 		}
 		
 	});
-	res.send("ok "+req.body.username+" "+req.body.score);
+	res.status(201).send("ok "+req.body.username+" "+req.body.score);
 });
 app.listen(port, () =>{
 	console.log("Application exemple à l'écoure sur le port "+port+"!");
